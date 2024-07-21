@@ -438,7 +438,7 @@ namespace chgen {
         auto now = time(nullptr);
         changelog->date_ = localtime(&now);
 
-        // TODO: get summary name
+        // TODO: get summary
         changelog->summary_ = "";
 
         // TODO: get policies
