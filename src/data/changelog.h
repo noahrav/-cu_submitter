@@ -5,14 +5,9 @@
 #include <vector>
 #include <ctime>
 #include <lcf/rpg/music.h>
-#include <rapidjson/document.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
 
 
 namespace data {
-
-    using Writer = rapidjson::Writer<rapidjson::StringBuffer>;
 
     /**
      * @brief Data structure used to represent wether an entry was added, removed or modified.
@@ -31,8 +26,6 @@ namespace data {
         int y;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Coordinates &lhs, const Coordinates &rhs) {
@@ -54,8 +47,6 @@ namespace data {
         int speed_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const BGMEvent &lhs, const BGMEvent &rhs) {
@@ -75,8 +66,6 @@ namespace data {
         Coordinates coordinates_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const OpenConnection &lhs, const OpenConnection &rhs) {
@@ -95,8 +84,6 @@ namespace data {
         Coordinates coordinates_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const ClosedConnection &lhs, const ClosedConnection &rhs) {
@@ -114,8 +101,6 @@ namespace data {
      */
     std::string id_string(unsigned int id);
 
-    void serializeMusic(Writer& writer, const lcf::rpg::Music& music);
-
     /**
      * @brief Data structure used to represent a map.
      */
@@ -132,8 +117,6 @@ namespace data {
         lcf::rpg::Music main_music_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Map &lhs, const Map &rhs) {
@@ -173,8 +156,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Connection &lhs, const Connection &rhs) {
@@ -196,8 +177,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const CommonEvent &lhs, const CommonEvent &rhs) {
@@ -219,8 +198,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const TilesetInfo &lhs, const TilesetInfo &rhs) {
@@ -241,8 +218,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Switch &lhs, const Switch &rhs) {
@@ -263,8 +238,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Variable &lhs, const Variable &rhs) {
@@ -286,8 +259,6 @@ namespace data {
         std::vector<std::string> notes_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Animation &lhs, const Animation &rhs) {
@@ -326,8 +297,6 @@ namespace data {
         std::string contributors_;
 
         std::string stringify();
-
-        void Serialize(Writer &writer) const;
     };
 
     inline bool operator==(const Asset &lhs, const Asset &rhs) {
@@ -344,8 +313,6 @@ namespace data {
      * @return A string representation of the date.
      */
     std::string date_string(tm *date);
-
-    void serializeDate(Writer& writer, tm* date);
 
     /**
      * @brief Data structure used to generate the changelog.
@@ -450,8 +417,6 @@ namespace data {
 
         std::string stringify();
 
-        void Serialize(Writer &writer) const;
-
         Changelog() = default;
     };
 
@@ -469,8 +434,6 @@ namespace data {
     inline bool operator!=(const Changelog &lhs, const Changelog &rhs) {
         return !(lhs == rhs);
     }
-
-    void serializeString(Writer& writer, const std::string& str);
 
 } // data
 

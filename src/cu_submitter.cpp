@@ -1,7 +1,8 @@
 #include <iostream>
+#include <QApplication>
 
-#include "api/api.h"
 #include "chgen/chgen.h"
+#include "gui/cusubmittergui.h"
 #include "transfer/transfer.h"
 #include "submit/submit.h"
 #include "utils/error.h"
@@ -13,7 +14,17 @@
  */
 int main(int argc, char* argv[])
 {
-    if (argc >= 2 && std::string(argv[1]) != "-p") {
+    if (argc < 2) {
+        // App mode
+        QApplication a(argc, argv);
+
+        CUSubmitterGUI gui;
+
+        log("Launching CU Submitter App");
+        gui.show();
+        return QApplication::exec();
+
+    } else {
         //CLI mode
         const std::string option = argv[1];
 
@@ -100,7 +111,7 @@ int main(int argc, char* argv[])
             }
 
             try {
-                if (archive.length() > 0) {
+                if (!archive.empty()) {
                     submit::SubmissionBuilder::submit(archive);
                 } else {
                     submit::SubmissionBuilder::submit();
@@ -110,25 +121,8 @@ int main(int argc, char* argv[])
             } catch (const std::exception &e) {
                 error(std::string(e.what()));
             }
-        } else {
-            error("Invalid arguments");
-            return 1;
         }
 
         return 0;
     }
-
-    std::string port = "3000";
-
-    if (argc >= 2 && std::string(argv[1]) == "-p" && argc < 3) {
-        error("Invalid arguments");
-        return 1;
-    } else if (argc >= 2 && std::string(argv[1]) == "-p") {
-        port = argv[2];
-    }
-
-    Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(stoi(port)));
-
-    CUSubmitterService::Service service(addr);
-    service.run();
 }
