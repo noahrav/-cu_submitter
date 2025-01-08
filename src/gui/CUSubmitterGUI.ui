@@ -23,6 +23,9 @@
                         <property name="text">
                             <string>Generate Changelog</string>
                         </property>
+                        <property name="toolTip">
+                            <string>Compares two Collective Unconscious builds and generates a changelog text file.</string>
+                        </property>
                     </widget>
                 </item>
                 <item>
@@ -30,12 +33,18 @@
                         <property name="text">
                             <string>Transfer Files</string>
                         </property>
+                        <property name="toolTip">
+                            <string>Transfers the modified files from your working build to the destination path. This is aimed to be used as a way to transfer local non-submitted changes to a newer build.</string>
+                        </property>
                     </widget>
                 </item>
                 <item>
                     <widget class="QPushButton" name="submitButton">
                         <property name="text">
                             <string>Submit Files</string>
+                        </property>
+                        <property name="toolTip">
+                            <string>Detects the changes made in a build and generates changelog in order to be ready for submission.</string>
                         </property>
                     </widget>
                 </item>

@@ -5,7 +5,6 @@
 #include "../chgen/chgen.h"
 #include "../transfer/transfer.h"
 #include "../submit/submit.h"
-#include "../utils/error.h"
 #include "../utils/print.h"
 
 CUSubmitterGUI::CUSubmitterGUI(QWidget *parent)
@@ -52,9 +51,16 @@ void CUSubmitterGUI::on_transferButton_clicked() {
         return;
     }
 
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, tr("Confirm Transfer"), tr("Confirm transfer?"),
-                                  QMessageBox::Yes | QMessageBox::No);
+    QMessageBox reply_box;
+
+    reply_box.setWindowTitle(tr("Confirm operation"));
+    reply_box.setText(tr("Confirm transfer ?"));
+    reply_box.setInformativeText(tr("This will modify your files. Please make sure you have made a backup of your data."));
+    reply_box.setDetailedText(tr(changelog->stringify().c_str()));
+    reply_box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    reply_box.setDefaultButton(QMessageBox::Yes);
+
+    int reply = reply_box.exec();
     if (reply == QMessageBox::No) {
         QMessageBox::information(this, tr("Info"), tr("Transfer cancelled"));
         return;
@@ -81,9 +87,16 @@ void CUSubmitterGUI::on_submitButton_clicked() {
         return;
     }
 
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, tr("Confirm Submission"), tr("Confirm submission?"),
-                                  QMessageBox::Yes | QMessageBox::No);
+    QMessageBox reply_box;
+
+    reply_box.setWindowTitle(tr("Confirm operation"));
+    reply_box.setText(tr("Confirm submission ?"));
+    reply_box.setInformativeText(tr("This will modify your files. Please make sure you have made a backup of your data."));
+    reply_box.setDetailedText(tr(changelog->stringify().c_str()));
+    reply_box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    reply_box.setDefaultButton(QMessageBox::Yes);
+
+    int reply = reply_box.exec();
     if (reply == QMessageBox::No) {
         QMessageBox::information(this, tr("Info"), tr("Submission cancelled"));
         return;
